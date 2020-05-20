@@ -13,5 +13,9 @@
     "express": "^4.17.1",
     "serverless-google-cloudfunctions": "*",
     "serverless-offline": "^6.1.5"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.5.7"
   }
 }

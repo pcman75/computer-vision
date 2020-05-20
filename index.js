@@ -1,4 +1,7 @@
 'use strict';
+require('dotenv').config();
+const config = require('./config.js');
+const MongoClient = require('mongodb').MongoClient;
 
 exports.openalprhook = (request, response) => {
   switch (request.get('content-type')) {
@@ -9,7 +12,7 @@ exports.openalprhook = (request, response) => {
       break;
 
     default:
-      console.log("I don't know what request is this");
+      console.error("I don't know what request is this");
   }
   response.status(200).send('Hello World!');
 };
