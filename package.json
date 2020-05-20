@@ -1,0 +1,16 @@
+{
+  "name": "computer-vision",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "serverless offline -s dev"
+  },
+  "author": "serverless.com",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-google-cloudfunctions": "*",
+    "serverless-offline": "^6.1.5"
+  }
+}
