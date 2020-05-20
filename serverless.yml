@@ -14,7 +14,6 @@ provider:
 
 plugins:
   - serverless-google-cloudfunctions
-  - serverless-webpack
   - serverless-offline
 
 # needs more granular excluding in production as only the serverless provider npm
@@ -27,7 +26,7 @@ package:
 
 functions:
   openalpr-hook:
-    handler: http
+    handler: openalprhook
     events:
       - http: path
   # NOTE: the following uses an "event" event (pubSub event in this case).

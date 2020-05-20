@@ -1,6 +1,6 @@
 'use strict';
 
-exports.http = (request, response) => {
+exports.openalprhook = (request, response) => {
   switch (request.get('content-type')) {
     // '{"name":"John"}'
     case 'application/json':
