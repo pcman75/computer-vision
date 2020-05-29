@@ -44,6 +44,42 @@ exports.openalprhook = async (request, response) => {
   }
 };
 
+async function getplates(search) {
+  let client;
+  try {
+    client = await MongoClient.connect(config.mongodb_url);
+    let db = client.db(config.dbName);
+    //const data = await db.collection(config.rawDataCol).find({}).project({epoch_start: 1, best_plate_number: 1, vehicle: 1}).toArray();
+    const data = await db.collection(config.platesCol).find({}).toArray();
+    return data;
+  }
+  catch (err) {
+    response.status(400).send(err);
+    console.error(err);
+  }
+  finally {
+    if (client)
+      await client.close();
+  }
+}
+
+exports.api = async (request, response) => {
+  console.log(`path = ${request.path}`);
+  console.log(`query = ${JSON.stringify(request.query)}`);
+  switch (request.path) {
+    case "/getplates/":
+    case "/getplates":
+      //todo: handle authorization
+
+      let plates = await getplates(request.query);
+      //console.log(loans);
+      response.status(200).send(plates);
+      break;
+    default:
+      response.status(404).send(`path = ${request.path}`);
+  }
+};
+
 exports.event = (event, callback) => {
   callback();
 };

@@ -20,6 +20,9 @@ const removePathRoot = (req, resp, fn) => {
 //POST
 app.post('/openalprhook*', (req, resp) => removePathRoot(req, resp, cloudfunctions.openalprhook));
 
+//GET
+app.get('/api*', (req, resp) => removePathRoot(req, resp, cloudfunctions.api));
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 //debug it with:
