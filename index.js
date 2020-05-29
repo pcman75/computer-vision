@@ -2,6 +2,11 @@
 require('dotenv').config();
 const config = require('./config.js');
 const MongoClient = require('mongodb').MongoClient;
+// Imports the Google Cloud client library
+const { PubSub } = require('@google-cloud/pubsub');
+
+// Creates a client; cache this for further use
+const pubSubClient = new PubSub();
 
 exports.openalprhook = async (request, response) => {
 
@@ -12,6 +17,16 @@ exports.openalprhook = async (request, response) => {
         client = await MongoClient.connect(config.mongodb_url);
         let db = client.db(config.dbName);
         await db.collection(config.rawDataCol).insert(request.body);
+
+        //ask the client to upload the image and video for this event
+        const topicName = 'publish-images';
+
+        // Publishes the message as a string
+        const dataBuffer = Buffer.from(request.body.best_uuid);
+
+        const messageId = await pubSubClient.topic(topicName).publish(dataBuffer);
+        console.log(`Message ${messageId}: ${request.body.best_uuid} published.`);
+
         break;
 
       default:
